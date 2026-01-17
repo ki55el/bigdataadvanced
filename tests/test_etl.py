@@ -45,9 +45,10 @@ def test_fill_structured_table(mock_run_sql, mock_engine):
     assert found, "SQL call for data cleaning not found"
 
 @patch('src.etl.fill_structured_table')
+@patch('src.etl.fill_dm_table')
 @patch('src.etl.load_data_to_db')
 @patch('src.etl.get_dataset') 
-def test_etl_pipeline(mock_get_dataset, mock_load_db, mock_fill_structured):
+def test_etl_pipeline(mock_get_dataset, mock_load_db, mock_fill_dm, mock_fill_structured):
     mock_df = pd.DataFrame({'unit_price': [10, -5], 'other_col': [1, 2]})
     mock_get_dataset.return_value = mock_df
     
@@ -58,3 +59,4 @@ def test_etl_pipeline(mock_get_dataset, mock_load_db, mock_fill_structured):
     mock_get_dataset.assert_called_once_with(50)
     mock_load_db.assert_called_once()
     mock_fill_structured.assert_called_once()
+    mock_fill_dm.assert_called_once()

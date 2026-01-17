@@ -1,25 +1,21 @@
 import json
 import os
+from dotenv import load_dotenv
 
-POSTGRES_CONFIG = json.loads(os.getenv('POSTGRES_CONFIG', '''
-{
-  "host": "localhost",
-  "port": 5432,
-  "database": "postgres",
-  "user": "postgres",
-  "password": "postgres"
+load_dotenv()
+
+POSTGRES_CONFIG = {
+  "host":     os.getenv('POSTGRES_HOST', 'big-data-postgres'),
+  "port":     int(os.getenv('POSTGRES_PORT', 5432)),
+  "database": os.getenv('POSTGRES_DB', 'bda'),
+  "user":     os.getenv('POSTGRES_USER', 'postgres'),
+  "password": os.getenv('POSTGRES_PASSWORD', 'postgres')
 }
-'''))
 
-MYSQL_CONFIG = json.loads(os.getenv('MYSQL_CONFIG', '''
-{
-  "host": "localhost",
-  "port": 3306,
-  "database": "sys",
-  "user": "root",
-  "password": "mysql"
+MYSQL_CONFIG = {
+  "host":     os.getenv('MYSQL_HOST', 'big-data-mysql'),
+  "port":     int(os.getenv('MYSQL_PORT', 3306)),
+  "database": os.getenv('MYSQL_DB', 'bda'),
+  "user":     os.getenv('MYSQL_USER', 'root'),
+  "password": os.getenv('MYSQL_PASSWORD', 'root')
 }
-'''))
-
-POSTGRES_SCHEMA = os.getenv('POSTGRES_SCHEMA', 's_sql_dds')
-MYSQL_SCHEMA = os.getenv('MYSQL_SCHEMA', 's_sql_dm')

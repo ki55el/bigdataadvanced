@@ -1,0 +1,9 @@
+[run]
+source = src
+omit =
+    src/run_data_migration.py
+    src/fill_dm_table.py
+    # исключаем файлы, которые запускаются вручную или требуют БД
+    
+[report]
+show_missing = True

@@ -17,17 +17,12 @@ def run_sql_file(conn, relative_path: str):
     print(f"Выполнен SQL: {relative_path}")
 
 def load_data_to_db(df: pd.DataFrame):
-    config = {
-        'host': 'localhost',
-        'port': 5432,
-        'database': POSTGRES_CONFIG['database'],
-        'user': POSTGRES_CONFIG['user'], 
-        'password': POSTGRES_CONFIG['password']
-    }
+        
+    connection_string = (
+        f"postgresql://{POSTGRES_CONFIG['user']}:{POSTGRES_CONFIG['password']}@"
+        f"{POSTGRES_CONFIG['host']}:{POSTGRES_CONFIG['port']}/{POSTGRES_CONFIG['database']}"
+    )
     
-    connection_string = f"postgresql://{config['user']}:{config['password']}@{config['host']}:{config['port']}/{config['database']}"
-    
-    print(f"Подключаемся...")
     engine = create_engine(connection_string)
     
     with engine.connect() as conn:
@@ -36,5 +31,12 @@ def load_data_to_db(df: pd.DataFrame):
         conn.execute(text("truncate table s_sql_dds.t_sql_source_unstructured"))
         conn.commit()
     
-    df.to_sql('t_sql_source_unstructured', engine, schema='s_sql_dds', if_exists='append', index=False)
+    df.to_sql(
+        't_sql_source_unstructured', 
+        engine, 
+        schema='s_sql_dds', 
+        if_exists='append', 
+        index=False
+    )
+
     print(f"Загружено {len(df)} строк!")
