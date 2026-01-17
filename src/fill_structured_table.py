@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 def fill_structured_table():
     
     config = {
-        'host': 'host.docker.internal',
+        'host': 'localhost',
         'port': 5432,
         'database': POSTGRES_CONFIG['database'],
         'user': POSTGRES_CONFIG['user'], 

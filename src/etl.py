@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from pathlib import Path
 import sys
 sys.path.append(str(Path(__file__).resolve().parent))
@@ -17,7 +19,7 @@ class ETLPipeline:
             'anomalies_fixed': 0
         }
     
-    def extract(self, rows: int = 1000):
+    def extract(self, rows: int = 1000) -> None:
         print("\nSTAGE 1: EXTRACT (Генерация грязных данных)")
         print("-" * 50)
         
@@ -29,7 +31,7 @@ class ETLPipeline:
         self.stats['generated'] = len(df)
         return df
     
-    def load_unstructured(self, df):
+    def load_unstructured(self, df) -> None:
         print("\nSTAGE 2: LOAD (t_sql_source_unstructured)")
         print("-" * 50)
         
@@ -37,7 +39,7 @@ class ETLPipeline:
         self.stats['loaded_unstructured'] = len(df)
         print("Грязные данные загружены!")
     
-    def transform_load(self):
+    def transform_load(self) -> None:
         print("\nSTAGE 3: TRANSFORM + LOAD (t_sql_source_structured)")
         print("-" * 50)
         

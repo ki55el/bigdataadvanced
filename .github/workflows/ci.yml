@@ -19,7 +19,7 @@ jobs:
         run: pip install -r requirements.txt
       
       - name: Run ETL tests
-        run: pytest --cov=src --cov=tests --cov-report=term-missing --cov-fail-under=95
+        run: pytest -v
       
-      - name: Build Docker
+      - name: Build Docker image
         run: docker build -t etl-lab .

@@ -18,7 +18,7 @@ def run_sql_file(conn, relative_path: str):
 
 def load_data_to_db(df: pd.DataFrame):
     config = {
-        'host': 'host.docker.internal',
+        'host': 'localhost',
         'port': 5432,
         'database': POSTGRES_CONFIG['database'],
         'user': POSTGRES_CONFIG['user'], 
